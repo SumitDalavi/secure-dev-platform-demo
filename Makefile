@@ -33,6 +33,7 @@ rotation-deploy:
 	kubectl apply -f ../k8s-secret-rotation-operator/config/
 
 policy-apply:
+	kubectl apply -f manifests/goldenpath-crd.yaml
 	kubectl apply -f manifests/kyverno-policy.yaml
 
 demo:
