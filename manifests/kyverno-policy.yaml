@@ -1,0 +1,18 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-team-label
+spec:
+  validationFailureAction: Enforce
+  rules:
+  - name: check-for-team-label
+    match:
+      resources:
+        kinds:
+        - GoldenPath
+    validate:
+      message: "The label `app.kubernetes.io/team` is required."
+      pattern:
+        metadata:
+          labels:
+            app.kubernetes.io/team: "?*"

@@ -1,0 +1,12 @@
+apiVersion: core.goldenpath.io/v1alpha1
+kind: GoldenPath
+metadata:
+  name: myservice
+  namespace: default
+  labels:
+    app.kubernetes.io/team: backend
+spec:
+  owner: "team-backend"
+  resourceQuota:
+    cpu: "2"
+    memory: "4Gi"

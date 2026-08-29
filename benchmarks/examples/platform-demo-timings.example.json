@@ -1,0 +1,11 @@
+{
+    "timestamp":  "2026-08-29T10:05:00Z",
+    "metrics":  {
+                    "time_to_first_service_seconds":  15.4,
+                    "time_to_first_service_baseline_seconds":  3600.0,
+                    "improvement_percentage":  99.57
+                },
+    "status":  "success",
+    "notes":  "Dummy benchmark results generated for demo purposes.",
+    "illustrative":  true
+}

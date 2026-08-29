@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout demo repository
+        uses: actions/checkout@v4
+        with:
+          path: secure-dev-platform-demo
+
+      - name: Checkout webhook (dependency)
+        uses: actions/checkout@v4
+        with:
+          repository: SumitDalavi/k8s-admission-webhook-from-scratch
+          path: k8s-admission-webhook-from-scratch
+
+      - name: Checkout provisioner (dependency)
+        uses: actions/checkout@v4
+        with:
+          repository: SumitDalavi/k8s-golden-path-provisioner
+          path: k8s-golden-path-provisioner
+
+      - name: Checkout secret rotation (dependency)
+        uses: actions/checkout@v4
+        with:
+          repository: SumitDalavi/k8s-secret-rotation-operator
+          path: k8s-secret-rotation-operator
+
+      - name: Setup Kind
+        uses: helm/kind-action@v1
+        with:
+          version: v0.20.0
+          cluster_name: platform-demo
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v4
+
+      - name: Run Demo
+        working-directory: secure-dev-platform-demo
+        run: |
+          # Run the standard makeup and teardown
+          make build-images
+          make load-images
+          make bootstrap
+          make webhook-deploy
+          make operator-deploy
+          make rotation-deploy
+          make policy-apply
+          make demo
+          make down
