@@ -11,7 +11,7 @@ helm install vault hashicorp/vault --set server.dev.enabled=true -n vault --crea
 
 echo "Installing Kyverno..."
 helm repo add kyverno https://kyverno.github.io/kyverno/ || true
-helm install kyverno kyverno/kyverno -n kyverno --create-namespace
+helm install kyverno kyverno/kyverno --version 3.0.0 -n kyverno --create-namespace
 
 echo "Loading locally built images..."
 kind load docker-image golden-path-provisioner:latest --name platform-demo || echo "Skipping local image load (golden-path-provisioner)"
