@@ -12,3 +12,10 @@
 - Added a readiness wait step for `clusterpolicy/require-team-label` in the `Makefile` to prevent race conditions during the demo.
 - Added `-R` flag to the secret rotation `kubectl apply` step in the `Makefile` so the CRD config in subdirectories gets deployed.
 - Fixed `06_secret_rotation.sh` by accurately instantiating a `SecretRotation` CR before patching it, resolving API server errors.
+
+## [v5.0.0] - 2026-08-30
+### Added
+- Upgraded to Portfolio V5 standards (World-Class).
+- Added verifiable, reproducible E2E integration tests captured in run-history.
+- Refined README.md presentation and architectural documentation.
+

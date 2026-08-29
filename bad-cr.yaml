@@ -1,0 +1,7 @@
+apiVersion: core.goldenpath.io/v1alpha1
+kind: GoldenPath
+metadata:
+  name: badservice
+  namespace: default
+spec:
+  owner: "team-backend"

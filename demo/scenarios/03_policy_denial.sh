@@ -3,7 +3,7 @@ set -euo pipefail
 
 echo "--- Scenario 03: Policy Denial ---"
 
-cat <<EOF > /tmp/bad-cr.yaml
+cat <<EOF > bad-cr.yaml
 apiVersion: core.goldenpath.io/v1alpha1
 kind: GoldenPath
 metadata:
@@ -17,7 +17,7 @@ EOF
 sleep 2
 
 # We expect this to fail and output DENY
-OUTPUT=$(kubectl apply -f /tmp/bad-cr.yaml 2>&1 || true)
+OUTPUT=$(kubectl.exe apply -f bad-cr.yaml 2>&1 || true)
 
 if echo "$OUTPUT" | grep -q -E -i "deny|denied|blocked"; then
   echo "✅ Success: Kyverno correctly denied the resource."
