@@ -2,8 +2,23 @@
 set -euo pipefail
 
 echo "--- Scenario 06: Secret Rotation ---"
+echo "Creating SecretRotation resource..."
+cat <<EOF | kubectl apply -f -
+apiVersion: secretops.io/v1alpha1
+kind: SecretRotation
+metadata:
+  name: backend-secret
+  namespace: myservice-prod
+spec:
+  secretRef:
+    name: backend-db-credentials
+    namespace: myservice-prod
+  rotationSchedule: "0 0 * * *"
+  rotationStrategy: "generate"
+  keyLength: 32
+EOF
 echo "Triggering secret rotation..."
-kubectl patch rotationpolicy backend-secret -p '{"spec":{"forceRotate": true}}' --type=merge
+kubectl patch secretrotation backend-secret -n myservice-prod -p '{"spec":{"forceRotate": true}}' --type=merge
 echo "✅ Rotation triggered"
 
 echo "Waiting for secret update..."
