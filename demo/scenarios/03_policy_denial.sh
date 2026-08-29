@@ -17,7 +17,7 @@ EOF
 sleep 2
 
 # We expect this to fail and output DENY
-OUTPUT=$(kubectl.exe apply -f bad-cr.yaml 2>&1 || true)
+OUTPUT=$(kubectl apply -f bad-cr.yaml 2>&1 || true)
 
 if echo "$OUTPUT" | grep -q -E -i "deny|denied|blocked"; then
   echo "✅ Success: Kyverno correctly denied the resource."
