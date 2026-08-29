@@ -30,7 +30,7 @@ operator-deploy:
 		--set image.pullPolicy=Never
 
 rotation-deploy:
-	kubectl apply -f ../k8s-secret-rotation-operator/config/
+	kubectl apply -R -f ../k8s-secret-rotation-operator/config/
 
 policy-apply:
 	kubectl apply -f manifests/goldenpath-crd.yaml
