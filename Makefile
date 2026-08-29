@@ -35,6 +35,8 @@ rotation-deploy:
 policy-apply:
 	kubectl apply -f manifests/goldenpath-crd.yaml
 	kubectl apply -f manifests/kyverno-policy.yaml
+	echo "Waiting for Kyverno policy to become active..."
+	sleep 15
 
 demo:
 	bash demo/run_demo.sh
