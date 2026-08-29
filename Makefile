@@ -21,7 +21,7 @@ load-images: build-images
 	kind load docker-image secret-rotation-operator:local --name platform-demo
 
 webhook-deploy:
-	kubectl apply -f ../k8s-admission-webhook-from-scratch/manifests/
+	kubectl apply -f ../k8s-admission-webhook-from-scratch/k8s/
 
 operator-deploy:
 	helm upgrade --install golden-path ../k8s-golden-path-provisioner/helm/ \
