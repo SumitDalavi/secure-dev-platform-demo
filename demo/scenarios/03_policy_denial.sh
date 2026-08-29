@@ -2,8 +2,8 @@
 set -euo pipefail
 
 echo "--- Scenario 03: Policy Denial ---"
-# Creating a dummy bad CR on the fly to simulate missing label
-cat <<EOF | kubectl apply -f - 2>&1 | grep -q "DENY"
+
+cat <<EOF > /tmp/bad-cr.yaml
 apiVersion: core.goldenpath.io/v1alpha1
 kind: GoldenPath
 metadata:
@@ -12,5 +12,19 @@ metadata:
 spec:
   owner: "team-backend"
 EOF
+
+# Give Kyverno a moment to register webhooks if it just started
+sleep 2
+
+# We expect this to fail and output DENY
+OUTPUT=$(kubectl apply -f /tmp/bad-cr.yaml 2>&1 || true)
+
+if echo "$OUTPUT" | grep -q -i "DENY"; then
+  echo "✅ Success: Kyverno correctly denied the resource."
+else
+  echo "❌ Error: Policy should have denied this, but it didn't!"
+  echo "$OUTPUT"
+  exit 1
+fi
 
 echo "✅ Success: Kyverno correctly denied the resource."
