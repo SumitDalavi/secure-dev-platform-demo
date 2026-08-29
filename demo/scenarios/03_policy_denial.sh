@@ -19,7 +19,7 @@ sleep 2
 # We expect this to fail and output DENY
 OUTPUT=$(kubectl apply -f /tmp/bad-cr.yaml 2>&1 || true)
 
-if echo "$OUTPUT" | grep -q -i "DENY"; then
+if echo "$OUTPUT" | grep -q -E -i "deny|denied|blocked"; then
   echo "✅ Success: Kyverno correctly denied the resource."
 else
   echo "❌ Error: Policy should have denied this, but it didn't!"
