@@ -2,7 +2,7 @@
 set -e
 
 echo "Installing cert-manager..."
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.12.0/cert-manager.yaml
 kubectl wait --for=condition=Available deployment --all -n cert-manager --timeout=120s
 
 echo "Installing Vault in dev mode..."
