@@ -19,3 +19,5 @@
 - Added verifiable, reproducible E2E integration tests captured in run-history.
 - Refined README.md presentation and architectural documentation.
 
+### Fixed (Post-Release)
+- Removed `.exe` extensions from Kubernetes CLI tools in scenario scripts and bootstrap to ensure compatibility with Linux-based GitHub Actions runners.
