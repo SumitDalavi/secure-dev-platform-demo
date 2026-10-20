@@ -106,26 +106,21 @@ gh release download v0.1.0 --repo SumitDalavi/secure-dev-platform-demo --pattern
 cat sbom.spdx.json | jq .spdxVersion
 ```
 
-## 🚀 Progressive Credential Loading & Execution Tiers
+## 🛠️ Verification & Deployment Tiers
 
-This project implements **Progressive Credential Loading (PCL)**, allowing it to run immediately out-of-the-box without external dependencies while seamlessly upgrading as credentials are provided.
+This integration platform demo supports progressive evaluation from automated local Kind simulation to enterprise developer platform deployment.
 
-### Tier 1: Zero-Config Mock Mode (Default)
-Ideal for CI, testing, and rapid local evaluation.
-- **Execution:** Run with default configuration (`cp .env.example .env`). Zero API keys, databases, or cloud credentials required.
-- **Fallback Behavior:** In-memory caches, deterministic offline heuristics, mock vector embeddings, and local mock storage are automatically used.
-- **Health Verification:** Endpoints report `{"mode": "mock"}` for unconfigured dependencies.
+### Tier 1: Automated Local Kind Cluster Demo (Default)
+Spin up an ephemeral Kind cluster and run all 6 automated security and governance scenarios locally.
+- **Execution:** `make up && make demo`
+- **Behavior:** Automatically spins up a Kind cluster, installs Kyverno, deploys webhooks, and tests policy rejections and secret rotation.
+- **Tear Down:** `make down` cleanly removes all local resources.
 
-### Tier 2: Local Development with Live Services
-Connect specific external services while keeping others mocked.
-- **Execution:** Provide credentials in `.env` for the services you want active (e.g., `VAULT_ADDR, VAULT_TOKEN, KUBECONFIG`).
-- **Progressive Upgrade:** The runtime inspects environment variables on boot and dynamically promotes only configured modules to live mode.
-- **Safe Fallback:** Any missing credentials automatically remain on mock fallbacks with no crashes or missing service errors.
+### Tier 2: Interactive Sandbox Evaluation
+Deploy individual platform components (GoldenPath CRD, Admission Webhooks, Kyverno policies) for focused experimentation.
+- **Execution:** Apply target components against a dedicated development cluster.
+- **Behavior:** Allows tuning admission webhook mutation rules and evaluating RBAC generation.
 
-### Tier 3: Production Hardened
-Enterprise deployment with production-grade backends, security scans, and container distributions.
-- **Release Distribution:** Download standalone release bundle and verified checksums:
-  ```bash
-  gh release download v0.2.0 --repo SumitDalavi/secure-dev-platform-demo
-  ```
-- **Integrity & Security:** Checksums and SPDX SBOM (`sbom.spdx.json`) available on [GitHub Releases](https://github.com/SumitDalavi/secure-dev-platform-demo/releases).
+### Tier 3: Production Developer Platform Blueprint
+Reference architecture for implementing paved-road security in enterprise Kubernetes platforms.
+- **Distribution:** Standalone release bundle, checksums, and verified SPDX SBOM available on [GitHub Releases](https://github.com/SumitDalavi/secure-dev-platform-demo/releases).
