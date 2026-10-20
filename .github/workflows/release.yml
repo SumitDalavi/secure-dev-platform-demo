@@ -1,0 +1,60 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Release Catalog & Policy Distribution
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate Manifests & Scripts
+        run: |
+          python -m pip install pyyaml
+          python -c "
+          import glob, yaml
+          for f in glob.glob('manifests/*.yaml') + glob.glob('cluster/*.yaml'):
+              with open(f) as stream:
+                  list(yaml.safe_load_all(stream))
+              print(f'Validated manifest: {f}')
+          "
+          bash -n cluster/bootstrap.sh demo/run_demo.sh
+          echo "Validation completed successfully!"
+
+      - name: Package Release Distribution Bundle
+        run: |
+          ARCHIVE_NAME="${{ github.event.repository.name }}-${{ github.ref_name }}.tar.gz"
+          tar --exclude='.git' --exclude='.github' --exclude='node_modules' --exclude='venv' --exclude='.venv' --exclude='__pycache__' --exclude='.terraform' -czf "/tmp/$ARCHIVE_NAME" .
+          mv "/tmp/$ARCHIVE_NAME" .
+          sha256sum "$ARCHIVE_NAME" > checksums.txt
+          echo "Package created: $ARCHIVE_NAME"
+          ls -lh "$ARCHIVE_NAME" checksums.txt
+
+      - name: Generate Source SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          path: ./
+          format: spdx-json
+          output-file: sbom.spdx.json
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            ${{ github.event.repository.name }}-*.tar.gz
+            checksums.txt
+            sbom.spdx.json
