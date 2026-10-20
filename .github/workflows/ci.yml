@@ -49,6 +49,7 @@ jobs:
           make build-images
           make load-images
           make bootstrap
+          make crd-apply
           make webhook-deploy
           make operator-deploy
           make rotation-deploy

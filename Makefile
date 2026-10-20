@@ -1,6 +1,6 @@
-.PHONY: cluster-up bootstrap build-images load-images webhook-deploy operator-deploy rotation-deploy policy-apply demo cluster-down up down
+.PHONY: cluster-up bootstrap build-images load-images crd-apply webhook-deploy operator-deploy rotation-deploy policy-apply demo cluster-down up down
 
-up: cluster-up build-images load-images bootstrap webhook-deploy operator-deploy rotation-deploy policy-apply
+up: cluster-up build-images load-images bootstrap crd-apply webhook-deploy operator-deploy rotation-deploy policy-apply
 	@echo "Cluster is up and operators are deployed."
 
 down: cluster-down
@@ -19,6 +19,10 @@ load-images: build-images
 	kind load docker-image k8s-admission-webhook:local --name platform-demo
 	kind load docker-image golden-path-provisioner:local --name platform-demo
 	kind load docker-image secret-rotation-operator:local --name platform-demo
+
+crd-apply:
+	kubectl apply -f manifests/goldenpath-crd.yaml
+	kubectl apply -f ../k8s-golden-path-provisioner/config/crd/
 
 webhook-deploy:
 	kubectl apply -f ../k8s-admission-webhook-from-scratch/k8s/
