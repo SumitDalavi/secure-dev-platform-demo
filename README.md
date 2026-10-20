@@ -1,12 +1,10 @@
 # Secure Dev Platform Demo 🛡️
 
-[![Release](https://img.shields.io/github/v/release/SumitDalavi/secure-dev-platform-demo)](https://github.com/SumitDalavi/secure-dev-platform-demo/releases)
+[![CI Pipeline](https://github.com/SumitDalavi/secure-dev-platform-demo/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/SumitDalavi/secure-dev-platform-demo/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/SumitDalavi/secure-dev-platform-demo?color=0969da&label=release&logo=github)](https://github.com/SumitDalavi/secure-dev-platform-demo/releases)
 [![Release Workflow](https://github.com/SumitDalavi/secure-dev-platform-demo/actions/workflows/release.yml/badge.svg)](https://github.com/SumitDalavi/secure-dev-platform-demo/actions/workflows/release.yml)
-
-
-[![CI Status](https://img.shields.io/badge/CI-Passing-success)](#)
-[![E2E Testing](https://img.shields.io/badge/E2E-Verified-success)](#)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![SBOM](https://img.shields.io/badge/SBOM-SPDX%202.3-blueviolet?logo=spdx)](https://github.com/SumitDalavi/secure-dev-platform-demo/releases/tag/v0.2.0)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 > **Maturity:** Functional Integration Prototype
 
