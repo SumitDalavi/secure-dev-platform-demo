@@ -34,6 +34,7 @@ rotation-deploy:
 
 policy-apply:
 	kubectl apply -f manifests/goldenpath-crd.yaml
+	kubectl apply -f ../k8s-golden-path-provisioner/config/crd/
 	kubectl apply -f manifests/kyverno-policy.yaml
 	echo "Waiting for Kyverno policy to become active..."
 	kubectl wait --for=condition=ready clusterpolicy/require-team-label --timeout=60s
