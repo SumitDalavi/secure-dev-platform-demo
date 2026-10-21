@@ -6,7 +6,7 @@
 [![SBOM](https://img.shields.io/badge/SBOM-SPDX%202.3-blueviolet?logo=spdx)](https://github.com/SumitDalavi/secure-dev-platform-demo/releases/tag/v0.2.0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-> **Maturity:** Functional Integration Prototype
+> End-to-end cloud-native developer platform integrating Golden Path Provisioning, Admission Webhooks, Secret Rotation Operators, and Kyverno Policies into a single zero-trust reference architecture.
 
 This composition ties together the **Golden Path Provisioner**, **Admission Webhooks**, **Secret Rotation Operator**, and **Kyverno Policies** into a single end-to-end integration demo. It demonstrates a secure, self-service developer platform that natively enforces compliance without hindering developer velocity.
 
